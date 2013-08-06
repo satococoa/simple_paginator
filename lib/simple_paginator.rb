@@ -29,5 +29,11 @@ module SimplePaginator
     def page_number(raw_page)
       [raw_page.to_i, 1].max
     end
+    def set_par_page(par_page)
+      self.par_page = par_page
+    end
+    def set_max_page(max_page)
+      self.max_page = max_page
+    end
   end
 end

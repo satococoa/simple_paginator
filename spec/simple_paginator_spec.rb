@@ -17,8 +17,8 @@ describe SimplePaginator do
 
     describe 'class methods' do
       specify { expect(Post).to be_respond_to(:paged) }
-      specify { expect(Post).to be_respond_to(:par_page) }
-      specify { expect(Post).to be_respond_to(:max_page) }
+      specify { expect(Post).to be_respond_to(:set_par_page) }
+      specify { expect(Post).to be_respond_to(:set_max_page) }
     end
 
     describe '.page_number' do
@@ -54,35 +54,77 @@ describe SimplePaginator do
     end
 
     describe '.paged' do
-      context 'page = 1' do
-        let(:page) { 1 }
-        it 'send :limit, :offset method' do
-          Post.should_receive(:limit).with(26).once { Post }
-          Post.should_receive(:offset).with(0).once
-          Post.paged(page)
+      context 'par_page, max_page are default' do
+        context 'page = 1' do
+          let(:page) { 1 }
+          it 'send :limit, :offset method' do
+            Post.should_receive(:limit).with(26).once { Post }
+            Post.should_receive(:offset).with(0).once
+            Post.paged(page)
+          end
+        end
+        context 'page = 2' do
+          let(:page) { 2 }
+          it 'send :limit, :offset method' do
+            Post.should_receive(:limit).with(26).once { Post }
+            Post.should_receive(:offset).with(25).once
+            Post.paged(page)
+          end
+        end
+        context 'page = 10' do
+          let(:page) { 10 }
+          it 'send :limit, :offset method' do
+            Post.should_receive(:limit).with(25).once { Post }
+            Post.should_receive(:offset).with(25 * (page-1)).once
+            Post.paged(page)
+          end
+        end
+        context 'page = 11' do
+          let(:page) { 11 }
+          it 'send :none method' do
+            Post.should_receive(:none).once
+            Post.paged(page)
+          end
         end
       end
-      context 'page = 2' do
-        let(:page) { 2 }
-        it 'send :limit, :offset method' do
-          Post.should_receive(:limit).with(26).once { Post }
-          Post.should_receive(:offset).with(25).once
-          Post.paged(page)
+
+      context 'change par_page, max_page' do
+        before do
+          Post.class_eval {
+            set_par_page 3
+            set_max_page 2
+          }
         end
-      end
-      context 'page = 10' do
-        let(:page) { 10 }
-        it 'send :limit, :offset method' do
-          Post.should_receive(:limit).with(25).once { Post }
-          Post.should_receive(:offset).with(25 * (page-1)).once
-          Post.paged(page)
+
+        after do
+          Post.class_eval {
+            set_par_page SimplePaginator::DEFAULT_PAR_PAGE
+            set_max_page SimplePaginator::DEFAULT_MAX_PAGE
+          }
         end
-      end
-      context 'page = 11' do
-        let(:page) { 11 }
-        it 'send :none method' do
-          Post.should_receive(:none).once
-          Post.paged(page)
+
+        context 'page = 1' do
+          let(:page) { 1 }
+          it 'send :limit, :offset method' do
+            Post.should_receive(:limit).with(4).once { Post }
+            Post.should_receive(:offset).with(0).once
+            Post.paged(page)
+          end
+        end
+        context 'page = 2' do
+          let(:page) { 2 }
+          it 'send :limit, :offset method' do
+            Post.should_receive(:limit).with(3).once { Post }
+            Post.should_receive(:offset).with(3).once
+            Post.paged(page)
+          end
+        end
+        context 'page = 3' do
+          let(:page) { 3 }
+          it 'send :limit, :offset method' do
+            Post.should_receive(:none).once
+            Post.paged(page)
+          end
         end
       end
     end
