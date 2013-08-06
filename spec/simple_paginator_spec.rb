@@ -17,7 +17,7 @@ describe SimplePaginator do
 
     describe 'class methods' do
       specify { expect(Post).to be_respond_to(:paged) }
-      specify { expect(Post).to be_respond_to(:set_par_page) }
+      specify { expect(Post).to be_respond_to(:set_per_page) }
       specify { expect(Post).to be_respond_to(:set_max_page) }
     end
 
@@ -54,7 +54,7 @@ describe SimplePaginator do
     end
 
     describe '.paged' do
-      context 'par_page, max_page are default' do
+      context 'per_page, max_page are default' do
         context 'page = 1' do
           let(:page) { 1 }
           it 'send :limit, :offset method' do
@@ -88,17 +88,17 @@ describe SimplePaginator do
         end
       end
 
-      context 'change par_page, max_page' do
+      context 'change per_page, max_page' do
         before do
           Post.class_eval {
-            set_par_page 3
+            set_per_page 3
             set_max_page 2
           }
         end
 
         after do
           Post.class_eval {
-            set_par_page SimplePaginator::DEFAULT_PAR_PAGE
+            set_per_page SimplePaginator::DEFAULT_PER_PAGE
             set_max_page SimplePaginator::DEFAULT_MAX_PAGE
           }
         end

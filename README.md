@@ -5,7 +5,7 @@ This is a useful pagination library especially building APIs.
 ## Feature
 - Does not issue `count`.
 - You can set max page.
-- You can set number of records par page.
+- You can set number of records per page.
 
 ## Installation
 
@@ -30,19 +30,19 @@ end
 You can get paginated records using `Post.paged(page)` method.
 
 Default is 25 records / page, maximum page number is 10.
-You will get 26 (par_page + 1) records when you can get next page.
+You will get 26 (per_page + 1) records when you can get next page.
 
 ```
 Post.paged(1) #=> returns 26 records at most.
 Post.paged(11) #=> returns 0 records if page is more than max_page.
 ```
 
-You can use `set_par_page`, `set_max_page` to change default behavior.
+You can use `set_per_page`, `set_max_page` to change default behavior.
 
 ```
 class Post < ActiveRecord::Base
   include SimplePaginator
-  set_par_page 10
+  set_per_page 10
   set_max_page 5
 end
 ```

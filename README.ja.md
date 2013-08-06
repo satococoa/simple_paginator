@@ -36,12 +36,12 @@ Post.paged(1) #=> 最大 26 件のオブジェクトが返ります。
 Post.paged(11) #=> 最大ページ以降は常に 0 件のレコードが返ります。
 ```
 
-1 ページあたりのレコード数や最大ページ数を変えたい場合は `set_par_page`, `set_max_page` メソッドを使います。
+1 ページあたりのレコード数や最大ページ数を変えたい場合は `set_per_page`, `set_max_page` メソッドを使います。
 
 ```
 class Post < ActiveRecord::Base
   include SimplePaginator
-  set_par_page 10
+  set_per_page 10
   set_max_page 5
 end
 ```
