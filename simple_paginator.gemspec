@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = SimplePaginator::VERSION
   spec.authors       = ["Satoshi Ebisawa"]
   spec.email         = ["e.satoshi@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{Useful paginator library for building APIs.}
+  spec.summary       = %q{Useful paginator library for building APIs.}
+  spec.homepage      = "https://github.com/satococoa/simple_paginator"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
