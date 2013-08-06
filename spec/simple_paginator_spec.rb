@@ -21,6 +21,38 @@ describe SimplePaginator do
       specify { expect(Post).to be_respond_to(:max_page) }
     end
 
+    describe '.page_number' do
+      subject(:page_number) { Post.page_number(raw_page) }
+      context 'raw_page is string' do
+        let(:raw_page) { 'foo' }
+        specify { expect(subject).to eq(1) }
+      end
+      context 'raw_page is blank string' do
+        let(:raw_page) { '' }
+        specify { expect(subject).to eq(1) }
+      end
+      context 'raw_page is 0' do
+        let(:raw_page) { 0 }
+        specify { expect(subject).to eq(1) }
+      end
+      context 'raw_page is negative' do
+        let(:raw_page) { -1 }
+        specify { expect(subject).to eq(1) }
+      end
+      context 'raw_page is a string to represent number' do
+        let(:raw_page) { '10' }
+        specify { expect(subject).to eq(10) }
+      end
+      context 'raw_page is a string to represent negative number' do
+        let(:raw_page) { '-1' }
+        specify { expect(subject).to eq(1) }
+      end
+      context 'raw_page is nil' do
+        let(:raw_page) { nil }
+        specify { expect(subject).to eq(1) }
+      end
+    end
+
     describe '.paged' do
       context 'page = 1' do
         let(:page) { 1 }

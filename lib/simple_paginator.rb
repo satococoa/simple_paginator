@@ -14,14 +14,20 @@ module SimplePaginator
     self.par_page = DEFAULT_PAR_PAGE
     self.max_page = DEFAULT_MAX_PAGE
     scope :paged, ->(page) {
-      page_number = [page.to_i, 1].max # 最低でも 1
-      if page_number > max_page
+      num = page_number(page)
+      if num > max_page
         none
-      elsif page_number == max_page
-        limit(par_page).offset((page_number-1)*par_page)
+      elsif num == max_page
+        limit(par_page).offset((num-1)*par_page)
       else
-        limit(par_page+1).offset((page_number-1)*par_page)
+        limit(par_page+1).offset((num-1)*par_page)
       end
     }
+  end
+
+  module ClassMethods
+    def page_number(raw_page)
+      [raw_page.to_i, 1].max
+    end
   end
 end
