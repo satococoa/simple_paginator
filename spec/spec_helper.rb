@@ -22,4 +22,11 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = 'random'
+
+  config.before do
+    ActiveRecord::Base.establish_connection(
+        :adapter => 'sqlite3',
+        :database => ':memory:'
+    )
+  end
 end

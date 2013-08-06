@@ -6,7 +6,7 @@ require 'active_record'
 module SimplePaginator
   extend ActiveSupport::Concern
 
-  DEFAULT_PAR_PAGE = 20
+  DEFAULT_PAR_PAGE = 25
   DEFAULT_MAX_PAGE = 10
 
   included do
