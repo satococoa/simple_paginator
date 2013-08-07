@@ -37,13 +37,13 @@ Post.paged(1) #=> returns 26 records at most.
 Post.paged(11) #=> returns 0 records if page is more than max_page.
 ```
 
-You can use `set_per_page`, `set_max_page` to change default behavior.
+You can use `per_page`, `max_page` to change default behavior.
 
 ```
 class Post < ActiveRecord::Base
   include SimplePaginator
-  set_per_page 10
-  set_max_page 5
+  per_page 10
+  max_page 5
 end
 ```
 

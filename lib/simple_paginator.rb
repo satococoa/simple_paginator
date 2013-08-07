@@ -10,17 +10,17 @@ module SimplePaginator
   DEFAULT_MAX_PAGE = 10
 
   included do
-    cattr_accessor :per_page, :max_page
-    self.per_page = DEFAULT_PER_PAGE
-    self.max_page = DEFAULT_MAX_PAGE
+    cattr_accessor :per_page_value, :max_page_value
+    per_page DEFAULT_PER_PAGE
+    max_page DEFAULT_MAX_PAGE
     scope :paged, ->(page) {
       num = page_number(page)
-      if num > max_page
+      if num > max_page_value
         none
-      elsif num == max_page
-        limit(per_page).offset((num-1)*per_page)
+      elsif num == max_page_value
+        limit(per_page_value).offset((num-1)*per_page_value)
       else
-        limit(per_page+1).offset((num-1)*per_page)
+        limit(per_page_value+1).offset((num-1)*per_page_value)
       end
     }
   end
@@ -29,11 +29,11 @@ module SimplePaginator
     def page_number(raw_page)
       [raw_page.to_i, 1].max
     end
-    def set_per_page(per_page)
-      self.per_page = per_page
+    def per_page(per_page)
+      self.per_page_value = per_page
     end
-    def set_max_page(max_page)
-      self.max_page = max_page
+    def max_page(max_page)
+      self.max_page_value = max_page
     end
   end
 end
