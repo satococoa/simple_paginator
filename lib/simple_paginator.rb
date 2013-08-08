@@ -1,5 +1,4 @@
 require "simple_paginator/version"
-require 'active_support/core_ext/class'
 require 'active_support/concern'
 require 'active_record'
 
