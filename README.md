@@ -1,5 +1,7 @@
 # SimplePaginator
 
+[![Build Status](https://travis-ci.org/satococoa/simple_paginator.png?branch=master)](https://travis-ci.org/satococoa/simple_paginator)
+
 This is a useful pagination library especially building APIs.
 
 ## Feature
