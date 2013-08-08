@@ -1,5 +1,6 @@
 # SimplePaginator
 
+[![Gem Version](https://badge.fury.io/rb/simple_paginator.png)](http://badge.fury.io/rb/simple_paginator)
 [![Build Status](https://travis-ci.org/satococoa/simple_paginator.png?branch=master)](https://travis-ci.org/satococoa/simple_paginator)
 [![Dependency Status](https://gemnasium.com/satococoa/simple_paginator.png)](https://gemnasium.com/satococoa/simple_paginator)
 [![Code Climate](https://codeclimate.com/github/satococoa/simple_paginator.png)](https://codeclimate.com/github/satococoa/simple_paginator)
