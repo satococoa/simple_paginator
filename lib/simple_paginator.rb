@@ -18,9 +18,11 @@ module SimplePaginator
     def paged(page, options = {})
       num = page_number(page)
       per_page = options[:per_page].presence || @per_page
-      if num > @max_page
+      max_page = options[:max_page].presence || @max_page
+
+      if num > max_page
         scoped = none
-      elsif num == @max_page
+      elsif num == max_page
         scoped = limit(per_page).offset((num-1)*per_page)
       else
         scoped = limit(per_page+1).offset((num-1)*per_page)
