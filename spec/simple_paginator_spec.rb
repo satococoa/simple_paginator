@@ -127,6 +127,49 @@ describe SimplePaginator do
           end
         end
       end
+
+      context 'change per_page by parameter' do
+        let(:per_page) { 5 }
+
+        before do
+          Post.class_eval {
+            per_page 3
+            max_page 2
+          }
+        end
+
+        after do
+          Post.class_eval {
+            per_page SimplePaginator::DEFAULT_PER_PAGE
+            max_page SimplePaginator::DEFAULT_MAX_PAGE
+          }
+        end
+
+        context 'page = 1' do
+          let(:page) { 1 }
+          it 'send :limit, :offset method' do
+            Post.should_receive(:limit).with(6).once { Post }
+            Post.should_receive(:offset).with(0).once
+            Post.paged(page, per_page: per_page)
+          end
+        end
+        context 'page = 2' do
+          let(:page) { 2 }
+          it 'send :limit, :offset method' do
+            Post.should_receive(:limit).with(5).once { Post }
+            Post.should_receive(:offset).with(5).once
+            Post.paged(page, per_page: per_page)
+          end
+        end
+        context 'page = 3' do
+          let(:page) { 3 }
+          it 'send :limit, :offset method' do
+            Post.should_receive(:none).once
+            Post.paged(page)
+          end
+        end
+      end
+
     end
   end
 end
