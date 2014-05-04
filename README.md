@@ -39,7 +39,8 @@ You will get 26 (per_page + 1) records when you can get next page.
 
 ```
 Post.paged(1) #=> returns 26 records at most.
-Post.paged(11) #=> returns 0 records if page is more than max_page.
+Post.paged #=> same as above.
+Post.paged(11) #=> returns 0 records if page (argument) > max_page.
 ```
 
 You can use `per_page`, `max_page` to change default behavior.
@@ -50,6 +51,13 @@ class Post < ActiveRecord::Base
   per_page 10
   max_page 5
 end
+```
+
+You are also be able to change them at `.paged` option.
+These parameters will override `per_page`, `max_page` values.
+
+```
+Post.paged(1, per_page: 5, max_page: 10)
 ```
 
 ## Contributing
